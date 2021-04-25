@@ -1,135 +1,65 @@
 <!doctype html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<script type="text/javascript" src="simcir.js"></script>
-<link rel="stylesheet" type="text/css" href="simcir.css" />
-<script type="text/javascript" src="simcir-basicset.js"></script>
-<link rel="stylesheet" type="text/css" href="simcir-basicset.css" />
-<script type="text/javascript" src="simcir-library.js"></script>
-<style type="text/css">
-* {
-  font-family: arial, sans-serif;
-}
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="simcir.js"></script>
+    <link rel="stylesheet" type="text/css" href="simcir.css" />
+    <script type="text/javascript" src="simcir-basicset.js"></script>
+    <link rel="stylesheet" type="text/css" href="simcir-basicset.css" />
+    <script type="text/javascript" src="simcir-library.js"></script>
+    <script type="text/javascript">
+$(function() {
 
-.code {
-  margin: 16px 0px 16px 0px;
-  padding: 4px;
-  border-width: 0px 0px 0px 4px;
-  border-color: #cccccc;
-  border-style: solid;
-  background-color: #f0f0f0;
-  white-space: pre;
-}
+  var $s = simcir;
 
-.note {
-  color: #0000ff;
-}
-</style>
-<title>SimcirJS</title>
-</head>
-<body>
+  var $simcir = $('#mySimcir');
 
+  var getCircuitData = function() {
+    return $s.controller(
+        $simcir.find('.simcir-workspace') ).text();
+  };
+  var setCircuitData = function(data) {
+    let cir =JSON.parse(data);
+    cir.width = 1000;
+    cir.height = 500;
+    $s.setupSimcir($simcir, cir);
+  };
 
-<div class="simcir">
-  {
-    "width":1000,
-    "height":500,
-    "showToolbox":true,
-    "toolbox":[
-      {"type":"In"},
-      {"type":"Out"},
-      {"type":"Joint"},
-      {"type":"DC"},
-      {"type":"LED"},
-      {"type":"PushOff"},
-      {"type":"PushOn"},
-      {"type":"Toggle"},
-      {"type":"BUF"},
-      {"type":"NOT"},
-      {"type":"AND"},
-      {"type":"NAND"},
-      {"type":"OR"},
-      {"type":"NOR"},
-      {"type":"XOR"},
-      {"type":"XNOR"},
-      {"type":"OSC"},
-      {"type":"7seg"},
-      {"type":"16seg"},
-      {"type":"4bit7seg"},
-      {"type":"RotaryEncoder"},
-      {"type":"BusIn"},
-      {"type":"BusOut"},
-      {"type":"RS-FF"},
-      {"type":"JK-FF"},
-      {"type":"T-FF"},
-      {"type":"D-FF"},
-      {"type":"8bitCounter"},
-      {"type":"HalfAdder"},
-      {"type":"FullAdder"},
-      {"type":"4bitAdder"},
-      {"type":"2to4BinaryDecoder"},
-      {"type":"3to8BinaryDecoder"},
-      {"type":"4to16BinaryDecoder"},
-      {"type":"AltFullAdder"},
-      {"type":"Transmitter"},
-      {"type":"Delay"},
-      {"type":"NumSrc"},
-      {"type":"NumDsp"},
-      {"type":"DSO"}
-    ],
-    "devices":[
-      {"id":"dev0","label":"NAND","type":"NAND","x":360,"y":16},
-      {"id":"dev1","label":"NAND","type":"NAND","x":264,"y":16},
-      {"id":"dev2","label":"DC","type":"DC","x":16,"y":184},
-      {"id":"dev3","label":"NAND","type":"NAND","x":360,"y":136},
-      {"id":"dev4","label":"NAND","type":"NAND","x":264,"y":144},
-      {"id":"dev5","label":"NAND","type":"NAND","x":264,"y":240},
-      {"id":"dev6","label":"NAND","type":"NAND","x":360,"y":232},
-      {"id":"dev7","label":"NAND","type":"NAND","x":272,"y":328},
-      {"id":"dev8","label":"NAND","type":"NAND","x":192,"y":320},
-      {"id":"dev9","label":"NAND","type":"NAND","x":192,"y":64},
-      {"id":"dev10","label":"Joint","state":{"direction":0},"type":"Joint","x":152,"y":72},
-      {"id":"dev11","label":"NAND","type":"NAND","x":200,"y":200},
-      {"id":"dev12","label":"Joint","state":{"direction":0},"type":"Joint","x":160,"y":216},
-      {"id":"dev13","label":"A0","state":{"on":false},"type":"Toggle","x":96,"y":120},
-      {"id":"dev14","label":"A1","state":{"on":false},"type":"Toggle","x":96,"y":232},
-      {"id":"dev15","label":"Y1","type":"LED","x":472,"y":136},
-      {"id":"dev16","label":"Y0","type":"LED","x":472,"y":16},
-      {"id":"dev17","label":"Y2","type":"LED","x":472,"y":232},
-      {"id":"dev18","label":"Y3","type":"LED","x":472,"y":328}
-    ],
-    "connectors":[
-      {"from":"dev0.in0","to":"dev1.out0"},
-      {"from":"dev0.in1","to":"dev1.out0"},
-      {"from":"dev1.in0","to":"dev9.out0"},
-      {"from":"dev1.in1","to":"dev11.out0"},
-      {"from":"dev3.in0","to":"dev4.out0"},
-      {"from":"dev3.in1","to":"dev4.out0"},
-      {"from":"dev4.in0","to":"dev13.out0"},
-      {"from":"dev4.in1","to":"dev11.out0"},
-      {"from":"dev5.in0","to":"dev9.out0"},
-      {"from":"dev5.in1","to":"dev14.out0"},
-      {"from":"dev6.in0","to":"dev5.out0"},
-      {"from":"dev6.in1","to":"dev5.out0"},
-      {"from":"dev7.in0","to":"dev8.out0"},
-      {"from":"dev7.in1","to":"dev8.out0"},
-      {"from":"dev8.in0","to":"dev13.out0"},
-      {"from":"dev8.in1","to":"dev14.out0"},
-      {"from":"dev9.in0","to":"dev10.out0"},
-      {"from":"dev9.in1","to":"dev10.out0"},
-      {"from":"dev10.in0","to":"dev13.out0"},
-      {"from":"dev11.in0","to":"dev12.out0"},
-      {"from":"dev11.in1","to":"dev12.out0"},
-      {"from":"dev12.in0","to":"dev14.out0"},
-      {"from":"dev13.in0","to":"dev2.out0"},
-      {"from":"dev14.in0","to":"dev2.out0"},
-      {"from":"dev15.in0","to":"dev3.out0"},
-      {"from":"dev16.in0","to":"dev0.out0"},
-      {"from":"dev17.in0","to":"dev6.out0"},
-      {"from":"dev18.in0","to":"dev7.out0"}
-    ]
-  }
-</div>
-</body>
+  // button click events
+  $('#getDataBtn').click(function() {
+    $('#dataArea').val(getCircuitData() );
+  });
+  $('#setDataBtn').click(function() {
+    setCircuitData($('#dataArea').val() );
+  });
+
+  // load default (just specifies circuit size).
+  setCircuitData('{ "width":600, "height":200 }');
+});
+    </script>
+    <title></title>
+  </head>
+  <body>
+    <p>
+      SimcirJSのサイトで、回路の空白部分をCtr+クリック<br>
+      ↓<br>
+      出てきた文字列をコピー<br>
+      ↓<br>
+      ここに戻ってきて下のテキストボックスにペースト<br>
+      ↓<br>
+      [set data]をクリック<br>
+      <br>
+      で背景が真っ白な回路を出すことができます。お試しあれ
+    </p>
+    <div id="mySimcir"></div>
+    <div>
+      <button id="getDataBtn">v get data v</button>
+      <button id="setDataBtn">^ set data ^</button>
+    </div>
+    <textarea id="dataArea" placeholder="ここにJSONをペースト" style="width:600px; height:200px;"></textarea>
+  </body>
 </html>
